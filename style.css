@@ -172,6 +172,21 @@ h2 {
   50% { opacity: 1; transform: translateX(-50%) scale(1.2); }
 }
 
+/* GitHub Graph */
+.github-graph {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+}
+
+.github-graph img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 10px rgba(86, 204, 242, 0.2));
+}
+
 /* Buttons */
 .cta-group {
   display: flex;
