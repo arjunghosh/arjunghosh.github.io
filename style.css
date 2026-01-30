@@ -71,6 +71,41 @@ body {
   gap: 1rem; /* Consistent spacing */
 }
 
+/* Header Layout */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Profile Images with Grayscale Hover Effect */
+.profile-img {
+  width: 100px; /* Adjust size as needed */
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  filter: grayscale(100%); /* Start Grey */
+  transition: all 0.4s ease;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.profile-img:hover {
+  filter: grayscale(0%); /* Color on Hover */
+  transform: scale(1.05) rotate(3deg);
+  border-color: var(--color-cyan);
+  box-shadow: 0 0 20px rgba(86, 204, 242, 0.4);
+}
+
 /* Typography */
 h1 {
   font-size: 5rem; /* Even Bigger Professional Font */
@@ -95,7 +130,7 @@ h2 {
 .bio {
   font-size: 1rem;
   max-width: 750px;
-  margin: 0 auto 1rem;
+  margin: 0 auto 1.5rem;
   color: #d1d5db;
   line-height: 1.5;
 }
@@ -140,8 +175,8 @@ h2 {
 .cta-group {
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
-  margin-bottom: 3rem;
+  gap: 1rem;
+  margin-bottom: 1.5rem; /* Increased margin for spacing */
   flex-wrap: wrap;
 }
 
@@ -149,13 +184,58 @@ h2 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 30px;
+  padding: 10px 24px;
   border-radius: 50px;
   text-decoration: none;
   font-weight: 600;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease; /* Minimal hover effect */
   position: relative;
   overflow: hidden;
+  font-size: 0.95rem;
+}
+
+/* Icons Grid */
+.icon-group-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.icon-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.icon-link {
+  color: #9ca3af; /* muted gray */
+  font-size: 1.2rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.icon-link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-3px);
+  border-color: var(--color-cyan);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.icon-link.large { /* Slightly larger for main socials */
+    width: 45px;
+    height: 45px;
+    font-size: 1.4rem;
 }
 
 .btn-primary {
