@@ -140,20 +140,46 @@ h2 {
     font-weight: 600;
 }
 
-/* Signature Punchline - Static & Prominent */
+/* Signature Punchline - Impactful & Elegant */
 .signature-punchline {
-  margin-top: 1rem;
-  font-family: var(--font-main); /* Use main font, not code font */
-  font-weight: 800;
-  font-size: 2.5rem; /* Large and prominent */
+  margin-top: 1.5rem;
+  font-family: 'Georgia', serif; /* Serif for "Beautiful" contrast */
+  font-style: italic;
+  font-weight: 700;
+  font-size: 2.8rem;
   color: var(--color-gold);
-  letter-spacing: -1px;
-  opacity: 1; /* Fully visible */
-  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  opacity: 1;
+  position: relative;
+  display: inline-block;
+  
+  /* Gradient Text */
   background: linear-gradient(90deg, #ffd700, #ff6b35);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* Decorative Quotes */
+.signature-punchline::before,
+.signature-punchline::after {
+  content: '"';
+  font-family: 'Georgia', serif;
+  font-size: 3.5rem;
+  color: rgba(255, 215, 0, 0.4); /* Subtle transparent gold */
+  position: absolute;
+  -webkit-text-fill-color: initial; /* Reset gradient for quotes if needed, or keep it */
+  background: none;
+}
+
+.signature-punchline::before {
+  left: -2rem;
+  top: -1rem;
+}
+
+.signature-punchline::after {
+  right: -2rem;
+  bottom: -2rem;
 }
 
 /* GitHub Graph */
