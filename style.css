@@ -140,110 +140,25 @@ h2 {
     font-weight: 600;
 }
 
-/* Signature Punchline - Impactful & Elegant */
-.signature-punchline {
-  margin-top: 1.5rem;
-  font-family: 'Georgia', serif; /* Serif for "Beautiful" contrast */
-  font-style: italic;
-  font-weight: 700;
-  font-size: 2.8rem;
-  color: var(--color-gold);
-  letter-spacing: -0.5px;
-  opacity: 1;
-  position: relative;
-  display: inline-block;
-  
-  /* Gradient Text */
-  background: linear-gradient(90deg, #ffd700, #ff6b35);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Decorative Quotes */
-.signature-punchline::before,
-.signature-punchline::after {
-  content: '"';
-  font-family: 'Georgia', serif;
-  font-size: 3.5rem;
-  color: rgba(255, 215, 0, 0.4); /* Subtle transparent gold */
-  position: absolute;
-  -webkit-text-fill-color: initial; /* Reset gradient for quotes if needed, or keep it */
-  background: none;
-}
-
-.signature-punchline::before {
-  left: -2rem;
-  top: -1rem;
-}
-
-.signature-punchline::after {
-  right: -2rem;
-  bottom: -2rem;
-}
-
-/* GitHub Graph */
-.github-graph {
-    width: 100%;
-    margin-top: 0.5rem;
-    padding: 0.5rem;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 12px;
-}
-
-.github-graph img {
-    width: 100%;
-    height: auto;
-    filter: drop-shadow(0 0 10px rgba(86, 204, 242, 0.2));
-}
-
-/* Buttons - Compact */
-.cta-group {
+/* Social Icons - Single Row */
+.social-icons-row {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem; /* Increased margin for spacing */
+  gap: 0.6rem; /* Tighter gap to fit many icons */
   flex-wrap: wrap;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 24px;
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: transform 0.2s ease; /* Minimal hover effect */
-  position: relative;
-  overflow: hidden;
-  font-size: 0.95rem;
-}
-
-/* Icons Grid */
-.icon-group-container {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    margin-bottom: 1rem;
-}
-
-.icon-row {
-  display: flex;
-  justify-content: center;
-  gap: 0.8rem;
-  flex-wrap: wrap;
+  margin-bottom: 0.8rem;
+  width: 100%;
 }
 
 .icon-link {
   color: #9ca3af; /* muted gray */
-  font-size: 1.2rem;
-  width: 40px;
-  height: 40px;
+  font-size: 1.1rem; /* Slightly smaller to fit all */
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
+  border-radius: 10px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid transparent;
   transition: all 0.3s ease;
@@ -258,10 +173,58 @@ h2 {
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-.icon-link.large { /* Slightly larger for main socials */
-    width: 45px;
-    height: 45px;
-    font-size: 1.4rem;
+/* Signature Punchline - Impactful & Elegant */
+.signature-punchline {
+  margin-top: 0.5rem;
+  font-family: 'Georgia', serif; 
+  font-style: italic;
+  font-weight: 700;
+  font-size: 2.2rem; /* Adjusted for single screen fit */
+  color: var(--color-gold);
+  letter-spacing: -0.5px;
+  opacity: 1;
+  display: inline-block;
+  
+  /* Gradient Text */
+  background: linear-gradient(90deg, #ffd700, #ff6b35);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Inline Quotes - No absolute positioning breakage */
+.signature-punchline::before,
+.signature-punchline::after {
+  content: '"';
+  font-family: 'Georgia', serif;
+  font-size: 2.5rem;
+  color: rgba(255, 215, 0, 0.4); 
+  -webkit-text-fill-color: initial; 
+  vertical-align: top;
+  margin: 0 0.2rem;
+}
+
+/* GitHub Graph */
+.github-graph {
+    width: 100%;
+    margin-top: 0.2rem;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    transition: all 0.4s ease;
+}
+
+.github-graph img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 5px rgba(86, 204, 242, 0.1));
+    transition: all 0.4s ease;
+}
+
+/* Hover Effect for Graph */
+.github-graph:hover img {
+    filter: drop-shadow(0 0 15px rgba(86, 204, 242, 0.6)) brightness(1.1);
+    transform: scale(1.01);
 }
 
 .btn-primary {
