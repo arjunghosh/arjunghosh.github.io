@@ -262,26 +262,10 @@ h2 {
     width: 100%;
     border: none !important;
     font-family: 'Inter', sans-serif !important;
-    background: rgba(20, 20, 35, 0.4); /* Dark Glass Background */
-    backdrop-filter: blur(10px);
-    border-radius: 16px;
-    padding: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .calendar .width-full {
     fill: transparent !important; /* Hide background rect */
-    min-height: auto !important;
-}
-
-/* Hide the clutter - "Skip to contributions", Footer Stats, Legend */
-.calendar .contrib-footer,
-.calendar .contrib-legend,
-.calendar .float-left, 
-.calendar .float-right,
-.calendar a {
-    display: none !important;
 }
 
 /* The magic glow for active cells */
@@ -301,14 +285,15 @@ h2 {
 
 /* Hide empty cells to keep it clean or keep them subtle */
 .calendar .ContributionCalendar-day[data-level="0"] {
-    opacity: 0.15; /* Very subtle for empty days */
+    opacity: 0.3;
 }
 
-/* Text in graph - Month/Day labels */
+/* Text in graph */
 .calendar text {
     fill: #a0a0c0 !important;
     font-size: 10px;
 }
+
 .social-links {
   display: flex;
   justify-content: center;
