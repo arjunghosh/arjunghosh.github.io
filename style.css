@@ -204,54 +204,95 @@ h2 {
   margin: 0 0.2rem;
 }
 
-/* GitHub Graph */
-.github-graph {
-    width: 100%;
-    margin-top: 0.2rem;
-    padding: 0.5rem;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 12px;
-    transition: all 0.4s ease;
+/* Premium Glass Pills - Buttons */
+.cta-group {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
 }
 
-.github-graph img {
-    width: 100%;
-    height: auto;
-    filter: drop-shadow(0 0 5px rgba(86, 204, 242, 0.1));
-    transition: all 0.4s ease;
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 32px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.5px;
 }
 
-/* Hover Effect for Graph */
-.github-graph:hover img {
-    filter: drop-shadow(0 0 15px rgba(86, 204, 242, 0.6)) brightness(1.1);
-    transform: scale(1.01);
-}
-
-.btn-primary {
-  /* Loyla Gradient */
-  background: linear-gradient(90deg, #ff6b35, #f7931e, #ffd700);
-  color: #fff;
+/* Community Button - Orange/Gold Gradient with Glow */
+.btn-premium-community {
+  background: linear-gradient(135deg, #ff9966 0%, #ff5e62 100%);
+  color: white;
   border: none;
-  box-shadow: 0 10px 40px rgba(255, 107, 53, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 94, 98, 0.4);
 }
 
-.btn-primary:hover {
+.btn-premium-community:hover {
   transform: translateY(-2px);
-  box-shadow: 0 15px 50px rgba(255, 107, 53, 0.5);
+  box-shadow: 0 6px 20px rgba(255, 94, 98, 0.6);
+  filter: brightness(1.1);
 }
 
-.btn-secondary {
-  background: transparent;
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.btn-secondary:hover {
+/* Resume Button - Glass Style */
+.btn-premium-resume {
   background: rgba(255, 255, 255, 0.1);
-  border-color: #fff;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
 }
 
-/* Social Links */
+.btn-premium-resume:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Interactive GitHub Graph Styling (JS Based) */
+.calendar {
+    width: 100%;
+    border: none !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+.calendar .width-full {
+    fill: transparent !important; /* Hide background rect */
+}
+
+/* The magic glow for active cells */
+.calendar .ContributionCalendar-day[data-level]:not([data-level="0"]) {
+    transition: all 0.3s ease;
+    shape-rendering: geometricPrecision;
+}
+
+.calendar .ContributionCalendar-day[data-level]:not([data-level="0"]):hover {
+    transform: scale(1.4);
+    filter: drop-shadow(0 0 8px var(--color-cyan));
+    stroke: #fff;
+    stroke-width: 1px;
+    z-index: 100;
+    position: relative;
+}
+
+/* Hide empty cells to keep it clean or keep them subtle */
+.calendar .ContributionCalendar-day[data-level="0"] {
+    opacity: 0.3;
+}
+
+/* Text in graph */
+.calendar text {
+    fill: #a0a0c0 !important;
+    font-size: 10px;
+}
 .social-links {
   display: flex;
   justify-content: center;

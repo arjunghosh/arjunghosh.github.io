@@ -9,6 +9,8 @@
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <!-- GitHub Calendar CSS (CDN) -->
+    <link rel="stylesheet" href="https://unpkg.com/github-calendar@latest/dist/github-calendar-responsive.css" />
 </head>
 <body>
     <div class="grandmother-bg"></div>
@@ -24,8 +26,8 @@
                 <div class="header-content">
                     <h1>Arjun Ghosh</h1>
                     <h2>
-                        Chief AI Officer (CAIO) & CTO <br>
-                        Founder of <span class="highlight">Flexilytics.ai</span> & <span class="highlight">Loyla.ai</span>
+                        Chief AI Officer (CAIO) & CTO of <span class="highlight">Flexilytics.ai</span> <br>
+                        Founder of <span class="highlight">Loyla.ai</span>
                     </h2>
                 </div>
 
@@ -42,8 +44,13 @@
             </p>
 
             <div class="cta-group">
-                <a href="https://chat.whatsapp.com/JktQdtLmfvGJrMCcMNfKve" class="btn btn-primary" target="_blank"><i class="fab fa-whatsapp"></i> &nbsp; Join Community</a>
-                <a href="./ArjunGhosh-Linkedin-PDF.pdf" class="btn btn-secondary" target="_blank"><i class="fas fa-file-download"></i> &nbsp; Download Resume</a>
+                <!-- Premium Glass Pills -->
+                <a href="https://chat.whatsapp.com/JktQdtLmfvGJrMCcMNfKve" class="btn btn-premium-community" target="_blank">
+                    <i class="fab fa-whatsapp"></i> &nbsp; Join Community
+                </a>
+                <a href="./ArjunGhosh-Linkedin-PDF.pdf" class="btn btn-premium-resume" target="_blank">
+                    <i class="fas fa-file-download"></i> &nbsp; Download Resume
+                </a>
             </div>
 
             <!-- Single Line of Social Icons -->
@@ -66,17 +73,26 @@
                 <a href="https://www.weekday.works/people/" class="icon-link" title="Weekday Works" target="_blank"><i class="fas fa-briefcase"></i></a>
             </div>
 
-            <div class="github-graph">
-                <!-- Dynamic GitHub Graph with Loyla Theme (Cyan #56ccf2) -->
-                <a href="https://github.com/arjunghosh" target="_blank">
-                    <img src="https://ghchart.rshah.org/56ccf2/arjunghosh" alt="Arjun Ghosh's Github Chart" />
-                </a>
+            <!-- Interactive GitHub Graph (JS Based) -->
+            <div class="calendar github-graph">
+                <!-- Loading text while fetching -->
+                <p style="text-align:center; color:#666;">Loading GitHub Activity...</p>
             </div>
 
-            <!-- Signature Punchline at Bottom - Static & Large -->
+            <!-- Signature Punchline -->
             <div class="signature-punchline">
                 AI for Everyone
             </div>
         </main>
     </div>
+
+    <!-- GitHub Calendar JS (CDN) -->
+    <script src="https://unpkg.com/github-calendar@latest/dist/github-calendar.min.js"></script>
+    <script>
+        // Use "responsive: true" to fit the container
+        GitHubCalendar(".calendar", "arjunghosh", { 
+            responsive: true,
+            tooltips: true
+        });
+    </script>
 </body>
