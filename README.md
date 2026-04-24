@@ -46,6 +46,12 @@ A premium, single-screen portfolio website designed for high-impact professional
 3.  **Deploy**:
     Commit and push to the `main` branch. GitHub Pages will auto-deploy.
 
+## 📝 Changelog
+### [v1.5.0] - 2026-04-24
+*   **Content Update**: Updated the resume download link to the latest 2026 version.
+*   **File Restructuring**: Migrated the resume PDF into a dedicated `docs` folder for better organization.
+*   **Verification**: Verified that the GitHub contributions wall design (`github-calendar.js`) is correctly fetching and auto-updating dynamic data.
+
 ## 📜 Credits
 *   **Design**: Custom "Loyla AI" Theme (Deep Purple/Gold/Cyan).
 *   **Graph Library**: [Bloggify/github-calendar](https://github.com/Bloggify/github-calendar)
