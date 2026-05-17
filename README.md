@@ -47,6 +47,10 @@ A premium, single-screen portfolio website designed for high-impact professional
     Commit and push to the `main` branch. GitHub Pages will auto-deploy.
 
 ## 📝 Changelog
+### [v1.6.1] - 2026-05-17
+*   **Cleanup**: Removed broken "Weekday Works" link and icon.
+*   **Verification**: Systematically verified all other social icon links (LinkedIn, GitHub, X, etc.) to ensure they point to Arjun Ghosh's active profiles.
+
 ### [v1.6.0] - 2026-05-17
 *   **Fix**: Resolved broken Flexilytics profile image by updating to a verified URL (`arjun.jpeg`).
 *   **Fix**: Upgraded FontAwesome from v6.4.0 to v6.6.0 to fix missing social icons (specifically the "X" / Twitter logo).
