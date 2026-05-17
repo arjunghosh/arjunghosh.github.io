@@ -47,6 +47,11 @@ A premium, single-screen portfolio website designed for high-impact professional
     Commit and push to the `main` branch. GitHub Pages will auto-deploy.
 
 ## 📝 Changelog
+### [v1.6.0] - 2026-05-17
+*   **Fix**: Resolved broken Flexilytics profile image by updating to a verified URL (`arjun.jpeg`).
+*   **Fix**: Upgraded FontAwesome from v6.4.0 to v6.6.0 to fix missing social icons (specifically the "X" / Twitter logo).
+*   **Maintenance**: Verified overall site layout and resume link integrity.
+
 ### [v1.5.0] - 2026-04-24
 *   **Content Update**: Updated the resume download link to the latest 2026 version.
 *   **File Restructuring**: Migrated the resume PDF into a dedicated `docs` folder for better organization.
