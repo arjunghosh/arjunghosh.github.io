@@ -47,6 +47,10 @@ A premium, single-screen portfolio website designed for high-impact professional
     Commit and push to the `main` branch. GitHub Pages will auto-deploy.
 
 ## 📝 Changelog
+### [v1.6.2] - 2026-06-16
+*   **Content Update**: Replaced the April resume PDF with the latest CTO/CAIO resume dated 16-Jun-2026.
+*   **Fix**: Updated the resume download button to point at the new PDF in `docs`.
+
 ### [v1.6.1] - 2026-05-17
 *   **Cleanup**: Removed broken "Weekday Works" link and icon.
 *   **Verification**: Systematically verified all other social icon links (LinkedIn, GitHub, X, etc.) to ensure they point to Arjun Ghosh's active profiles.
