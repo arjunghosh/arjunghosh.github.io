@@ -72,6 +72,17 @@ direct production dependency:
     something sensible instead of stretched alt text.
 
 ## 📝 Changelog
+### [v1.7.3] - 2026-08-04
+*   **Design**: The lead portrait is now larger than the secondary avatar
+    (140px vs 100px) via a `.profile-img--lead` modifier, and the crop was
+    loosened (3200px source square instead of 2600px) so there is headroom
+    above the head instead of the frame cutting in tight.
+*   **Asset**: Re-exported at 640×640 / 42 KB, enough for a 140px circle at 3×
+    device pixel ratio.
+*   **Tests**: 30 passing. Added checks that the lead portrait measures 140px
+    while the secondary stays 100px, and that the lead image ships at least
+    420px of real pixels.
+
 ### [v1.7.2] - 2026-08-04
 *   **Fix**: The left header portrait is now served from this repo
     (`assets/arjun-ghosh.jpg`) instead of hotlinking

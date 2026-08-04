@@ -99,6 +99,12 @@ header {
   box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
+/* The lead portrait is deliberately larger than the secondary avatar */
+.profile-img--lead {
+  width: 140px;
+  height: 140px;
+}
+
 .profile-img:hover {
   filter: grayscale(0%); /* Color on Hover */
   transform: scale(1.05) rotate(3deg);

@@ -363,6 +363,37 @@ test.describe('AC-10 header portraits', () => {
       .toBeGreaterThan(0);
   });
 
+  test('the lead portrait renders larger than the secondary avatar', async ({ page }) => {
+    await mockPrimary(page);
+    await page.goto('/index.html');
+
+    const boxes = await page
+      .locator('img.profile-img')
+      .evaluateAll((els) =>
+        els.map((el) => {
+          const r = el.getBoundingClientRect();
+          return { lead: el.classList.contains('profile-img--lead'), w: Math.round(r.width) };
+        })
+      );
+
+    const lead = boxes.find((b) => b.lead);
+    const secondary = boxes.find((b) => !b.lead);
+    expect(lead, 'the left portrait must carry the lead modifier').toBeTruthy();
+    expect(secondary, 'the right avatar must stay unmodified').toBeTruthy();
+    expect(lead.w).toBe(140);
+    expect(secondary.w).toBe(100);
+  });
+
+  test('the lead portrait has enough pixels for a 140px circle on retina', async ({ page }) => {
+    await mockPrimary(page);
+    await page.goto('/index.html');
+    const natural = await page
+      .locator('img.profile-img--lead')
+      .evaluate((el) => el.naturalWidth);
+    // 140 CSS px at 3x device pixel ratio needs 420px of real image.
+    expect(natural).toBeGreaterThanOrEqual(420);
+  });
+
   test('the committed portrait stays within a sane size budget', () => {
     const file = path.join(__dirname, '..', LOCAL_PORTRAIT);
     expect(fs.existsSync(file), `${LOCAL_PORTRAIT} must be committed`).toBe(true);
