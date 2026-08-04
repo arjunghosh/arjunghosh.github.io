@@ -98,20 +98,25 @@
         var USERNAME = 'arjunghosh';
         var PROFILE_URL = 'https://github.com/' + USERNAME;
         var DATA_URL = 'https://github-contributions-api.jogruber.de/v4/' + USERNAME + '?y=last';
-        var FALLBACK_IMG_URL = 'https://ghchart.rshah.org/56ccf2/' + USERNAME;
+        var FALLBACK_IMG_URL = 'https://ghchart.rshah.org/56d364/' + USERNAME;
         var TIMEOUT_MS = 6000;
 
-        // Contribution intensity ramp, built on the Loyla cyan (--color-cyan).
+        // GitHub's own dark-mode contribution palette, read from a live profile
+        // (computed backgroundColor on [data-level] under colorScheme: dark).
+        // The dark ramp is used rather than the light one because on this card's
+        // purple background the light ramp inverts: its empty cells outshine its
+        // busiest days. Re-verify against GitHub before editing these values.
         var LEVEL_FILL = [
-            'rgba(255, 255, 255, 0.08)', // 0 - no contributions
-            'rgba(86, 204, 242, 0.28)',  // 1
-            'rgba(86, 204, 242, 0.52)',  // 2
-            'rgba(86, 204, 242, 0.76)',  // 3
-            '#56ccf2'                    // 4 - brightest
+            '#151b23', // 0 - no contributions
+            '#033a16', // 1
+            '#196c2e', // 2
+            '#2ea043', // 3
+            '#56d364'  // 4 - neon green, brightest
         ];
 
         var CELL = 11, GAP = 3, STEP = CELL + GAP;
-        var PAD_LEFT = 28, PAD_TOP = 18;
+        var PAD_LEFT = 28, PAD_TOP = 18, PAD_BOTTOM = 22;
+        var LEGEND_CELL = 10, LEGEND_STEP = LEGEND_CELL + 3;
         var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                       'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         var SVG_NS = 'http://www.w3.org/2000/svg';
@@ -140,7 +145,7 @@
             var offset = parseUTCDate(days[0].date).getUTCDay();
             var weeks = Math.ceil((offset + days.length) / 7);
             var width = PAD_LEFT + weeks * STEP;
-            var height = PAD_TOP + 7 * STEP;
+            var height = PAD_TOP + 7 * STEP + PAD_BOTTOM;
 
             var svg = svgEl('svg', {
                 'class': 'github-graph-svg',
@@ -200,7 +205,49 @@
                 svg.appendChild(rect);
             });
 
+            svg.appendChild(buildLegend(width, PAD_TOP + 7 * STEP + 12));
             return svg;
+        }
+
+        // "Less [][][][][] More" key, right-aligned under the grid like GitHub's.
+        function buildLegend(width, y) {
+            var group = svgEl('g', { 'class': 'github-graph-legend' });
+            var swatchesEnd = width - 34;
+            var swatchesStart = swatchesEnd - LEVEL_FILL.length * LEGEND_STEP;
+
+            var less = svgEl('text', {
+                x: swatchesStart - 6,
+                y: y + LEGEND_CELL - 1,
+                'text-anchor': 'end',
+                'class': 'github-graph-label'
+            });
+            less.textContent = 'Less';
+            group.appendChild(less);
+
+            LEVEL_FILL.forEach(function (fill, level) {
+                var swatch = svgEl('rect', {
+                    'class': 'github-graph-legend-swatch',
+                    'data-level': String(level),
+                    x: swatchesStart + level * LEGEND_STEP,
+                    y: y,
+                    width: LEGEND_CELL,
+                    height: LEGEND_CELL,
+                    rx: 2,
+                    ry: 2,
+                    fill: fill
+                });
+                group.appendChild(swatch);
+            });
+
+            var more = svgEl('text', {
+                x: swatchesEnd + 4,
+                y: y + LEGEND_CELL - 1,
+                'class': 'github-graph-label'
+            });
+            more.textContent = 'More';
+            group.appendChild(more);
+
+            return group;
         }
 
         function renderGrid(payload) {

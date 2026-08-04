@@ -286,19 +286,17 @@ h2 {
     transform-origin: center;
 }
 
+/* Halo matches the neon green of the cells (LEVEL_FILL[4] in index.html) */
 .calendar .ContributionCalendar-day[data-level]:not([data-level="0"]):hover {
     transform: scale(1.4);
-    filter: drop-shadow(0 0 8px var(--color-cyan));
+    filter: drop-shadow(0 0 8px #56d364);
     stroke: #fff;
     stroke-width: 1px;
     z-index: 100;
     position: relative;
 }
 
-/* Hide empty cells to keep it clean or keep them subtle */
-.calendar .ContributionCalendar-day[data-level="0"] {
-    opacity: 0.3;
-}
+/* Empty cells use GitHub's own level-0 fill, no opacity override */
 
 /* Text in graph */
 .calendar text {

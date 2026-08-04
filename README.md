@@ -12,7 +12,7 @@ A premium, single-screen portfolio website designed for high-impact professional
     *   **Tier 2**: Key Actions (Community & Resume).
     *   **Tier 3**: Interactive Social Proof (GitHub Graph & Social Links).
 *   **Interactive Elements**:
-    *   **GitHub Calendar**: A self-rendered SVG contribution graph (no third-party widget) with active-cell hover glows.
+    *   **GitHub Calendar**: A self-rendered SVG contribution graph (no third-party widget) using GitHub's neon-green dark-mode palette, with active-cell hover glows.
     *   **Profile Images**: Grayscale-to-Color transitions on hover.
     *   **Glass Pills**: High-end button styles with gradients and lift effects.
 
@@ -67,6 +67,24 @@ direct production dependency:
     widgets for anything on the critical visual path.
 
 ## 📝 Changelog
+### [v1.7.1] - 2026-08-04
+*   **Design**: Recoloured the contribution grid from Loyla cyan to GitHub's
+    neon-green contribution palette.
+*   **Palette**: Uses GitHub's **dark-mode** ramp
+    (`#151b23`, `#033a16`, `#196c2e`, `#2ea043`, `#56d364`), verified by reading
+    computed `backgroundColor` off `[data-level]` nodes on a live GitHub profile
+    under `colorScheme: dark`. The light-mode ramp was rejected because on this
+    card's purple background it inverts — its empty cells outshine its busiest
+    days (7.19:1 vs 1.35:1 contrast).
+*   **Feature**: Added the right-aligned "Less → More" legend.
+*   **Change**: Hover glow switched from cyan to `#56d364` so the halo matches
+    the cells; removed the `opacity: 0.3` override on empty cells in favour of
+    GitHub's literal level-0 fill.
+*   **Change**: Fallback chart image recoloured to match (`ghchart.rshah.org/56d364/`).
+*   **Tests**: 22 passing. Added palette-pinning tests (exact hex per level,
+    no cyan remaining, green hover glow, green fallback URL) and legend tests
+    (five ordered swatches, Less/More labels).
+
 ### [v1.7.0] - 2026-08-04
 *   **Fix**: Restored the GitHub contribution graph, which had been stuck on
     "Loading GitHub Activity...". Root cause: `github-calendar@latest` fetched
