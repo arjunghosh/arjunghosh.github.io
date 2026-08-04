@@ -173,8 +173,25 @@ test.describe('AC-6 regression guards on the root causes', () => {
  * Pinned here so the ramp cannot drift silently; re-verify against GitHub
  * before changing any of these values.
  */
-const GH_DARK_PALETTE = ['#151b23', '#033a16', '#196c2e', '#2ea043', '#56d364'];
-const NEON_GREEN = GH_DARK_PALETTE[4];
+const GH_DARK_GREENS = ['#033a16', '#196c2e', '#2ea043', '#56d364'];
+const NEON_GREEN = GH_DARK_GREENS[3];
+
+/**
+ * Empty days use a translucent white veil rather than GitHub's near-black L0.
+ * On this card's purple background a solid light L0 measures 7.50:1 while the
+ * brightest green measures 4.38:1, which would make empty days outshine busy
+ * ones. A 12% white sits at 1.35:1 and recedes behind every green.
+ */
+const EMPTY_FILL = '#ffffff';
+const EMPTY_OPACITY = '0.12';
+
+function expectedFill(level) {
+  return level === 0 ? EMPTY_FILL : GH_DARK_GREENS[level - 1];
+}
+
+function expectedOpacity(level) {
+  return level === 0 ? EMPTY_OPACITY : '1';
+}
 
 test.describe('AC-8 GitHub neon-green palette', () => {
   test('each level is filled with its pinned palette colour', async ({ page }) => {
@@ -182,19 +199,39 @@ test.describe('AC-8 GitHub neon-green palette', () => {
     await page.goto('/index.html');
     await expect(page.locator(`${GRAPH} .ContributionCalendar-day`).first()).toBeVisible();
 
-    const pairs = await page
+    const cells = await page
       .locator(`${GRAPH} .ContributionCalendar-day`)
       .evaluateAll((els) =>
-        els.map((el) => [el.getAttribute('data-level'), el.getAttribute('fill')])
+        els.map((el) => ({
+          level: Number(el.getAttribute('data-level')),
+          fill: el.getAttribute('fill'),
+          opacity: el.getAttribute('fill-opacity'),
+        }))
       );
 
     const seen = new Set();
-    for (const [level, fill] of pairs) {
-      expect(String(fill).toLowerCase()).toBe(GH_DARK_PALETTE[Number(level)]);
-      seen.add(level);
+    for (const cell of cells) {
+      expect(String(cell.fill).toLowerCase()).toBe(expectedFill(cell.level));
+      expect(String(cell.opacity)).toBe(expectedOpacity(cell.level));
+      seen.add(cell.level);
     }
     // The fixture spans all five levels, so all five must have been exercised.
     expect(seen.size).toBe(5);
+  });
+
+  test('empty days are a translucent white veil, not a black block', async ({ page }) => {
+    await mockPrimary(page);
+    await page.goto('/index.html');
+
+    const empty = page.locator(`${GRAPH} .ContributionCalendar-day[data-level="0"]`).first();
+    await expect(empty).toHaveAttribute('fill', EMPTY_FILL);
+    await expect(empty).toHaveAttribute('fill-opacity', EMPTY_OPACITY);
+
+    // The old near-black L0 must not come back.
+    const fills = await page
+      .locator(`${GRAPH} .ContributionCalendar-day`)
+      .evaluateAll((els) => els.map((el) => String(el.getAttribute('fill')).toLowerCase()));
+    expect(fills).not.toContain('#151b23');
   });
 
   test('the brightest level is the neon green, not the old cyan', async ({ page }) => {
@@ -250,7 +287,7 @@ test.describe('AC-9 contribution legend', () => {
     const fills = await swatches.evaluateAll((els) =>
       els.map((el) => String(el.getAttribute('fill')).toLowerCase())
     );
-    expect(fills).toEqual(GH_DARK_PALETTE);
+    expect(fills).toEqual([EMPTY_FILL, ...GH_DARK_GREENS]);
   });
 
   test('the legend is ordered least-to-most active', async ({ page }) => {
@@ -263,6 +300,74 @@ test.describe('AC-9 contribution legend', () => {
     expect(xs).toHaveLength(5); // guard: an empty list would sort "correctly"
     const sorted = [...xs].sort((a, b) => a - b);
     expect(xs).toEqual(sorted);
+  });
+});
+
+/**
+ * The left header portrait used to hotlink https://www.flexilytics.ai/assets/team/arjun.jpeg.
+ * That asset started returning HTTP 403 (verified in a real browser, not just curl),
+ * so the <img> decoded to 0x0 and rendered as stretched alt text. Same failure class
+ * as the contribution-graph outage: a critical visual on someone else's infrastructure.
+ * It is now served from this repo.
+ */
+const LOCAL_PORTRAIT = 'assets/arjun-ghosh.jpg';
+
+test.describe('AC-10 header portraits', () => {
+  test('both portraits actually decode', async ({ page }) => {
+    await mockPrimary(page);
+    await page.goto('/index.html');
+
+    const imgs = page.locator('img.profile-img');
+    expect(await imgs.count()).toBe(2);
+
+    const dims = await imgs.evaluateAll((els) =>
+      els.map((el) => ({ src: el.src, w: el.naturalWidth, h: el.naturalHeight }))
+    );
+    for (const d of dims) {
+      expect(d.w, `${d.src} decoded to zero width`).toBeGreaterThan(0);
+      expect(d.h, `${d.src} decoded to zero height`).toBeGreaterThan(0);
+    }
+  });
+
+  test('the left portrait is served from this repo, not a third party', async ({ page }) => {
+    await mockPrimary(page);
+    await page.goto('/index.html');
+
+    const left = page.locator('img.profile-img').first();
+    await expect(left).toHaveAttribute('src', LOCAL_PORTRAIT);
+
+    const { origin, natural } = await left.evaluate((el) => ({
+      origin: new URL(el.src).origin,
+      natural: el.naturalWidth,
+    }));
+    expect(origin).toBe(new URL(page.url()).origin);
+    expect(natural).toBeGreaterThanOrEqual(256);
+  });
+
+  test('no header image points at flexilytics.ai any more', () => {
+    const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+    const imgTags = html.match(/<img\b[^>]*>/g) || [];
+    for (const tag of imgTags) {
+      expect(tag, 'header images must not hotlink flexilytics.ai').not.toContain('flexilytics.ai');
+    }
+  });
+
+  test('a broken portrait falls back instead of rendering stretched alt text', async ({ page }) => {
+    await page.route(`**/${LOCAL_PORTRAIT}`, (route) => route.abort('failed'));
+    await mockPrimary(page);
+    await page.goto('/index.html');
+
+    const left = page.locator('img.profile-img').first();
+    await expect
+      .poll(async () => left.evaluate((el) => el.naturalWidth), { timeout: 10000 })
+      .toBeGreaterThan(0);
+  });
+
+  test('the committed portrait stays within a sane size budget', () => {
+    const file = path.join(__dirname, '..', LOCAL_PORTRAIT);
+    expect(fs.existsSync(file), `${LOCAL_PORTRAIT} must be committed`).toBe(true);
+    const kb = fs.statSync(file).size / 1024;
+    expect(kb, `portrait is ${kb.toFixed(0)}KB; it renders in a 100px circle`).toBeLessThan(200);
   });
 });
 

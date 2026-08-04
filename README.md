@@ -65,8 +65,36 @@ direct production dependency:
     go down; the page must still render something useful.
 *   **Prefer server-rendered images or self-rendered SVG** over third-party JS
     widgets for anything on the critical visual path.
+*   **Never hotlink images from another site.** Commit them to `assets/`. A
+    hotlinked portrait broke twice; the second time it flapped between HTTP 403
+    and 200, which no amount of client-side retrying would have fixed.
+*   **Every `<img>` gets an `onerror` fallback**, so a dead asset degrades to
+    something sensible instead of stretched alt text.
 
 ## 📝 Changelog
+### [v1.7.2] - 2026-08-04
+*   **Fix**: The left header portrait is now served from this repo
+    (`assets/arjun-ghosh.jpg`) instead of hotlinking
+    `https://www.flexilytics.ai/assets/team/arjun.jpeg`. That asset began
+    returning HTTP 403 (confirmed in a real browser, `naturalWidth 0x0` on the
+    live page) and rendered as stretched alt text. It has since been observed
+    flapping back to 200 — an intermittently available asset is exactly what a
+    homepage should not depend on. The Flexilytics *link* is unaffected and
+    still points at `/about`, which resolves normally.
+*   **Asset**: Source portrait downscaled and square-cropped to head-and-shoulders
+    — 4096×3848 / 8.4 MB → 512×512 / 29 KB progressive JPEG, for a 100px circle.
+*   **Resilience**: Added an `onerror` fallback on the portrait so a missing
+    image degrades to the GitHub avatar rather than broken alt text.
+*   **Design**: Empty contribution cells changed from GitHub's near-black L0
+    (`#151b23`) to a translucent white veil (`#ffffff` at 12% opacity). Measured
+    on this card's purple background, a solid light L0 is 7.50:1 while the
+    brightest green is 4.38:1 — empty days would have outshone busy ones. The
+    veil sits at 1.35:1 and recedes behind every green.
+*   **Tests**: 28 passing. Added portrait coverage (both images decode, left
+    image is same-origin, no `<img>` points at flexilytics.ai, `onerror`
+    fallback works, committed asset under a 200KB budget) and updated the
+    palette/legend tests for the translucent empty cell.
+
 ### [v1.7.1] - 2026-08-04
 *   **Design**: Recoloured the contribution grid from Loyla cyan to GitHub's
     neon-green contribution palette.

@@ -19,8 +19,17 @@
         <main class="glass-card">
             <header>
                 <!-- Left Image: Startups/Flexilytics Profile -->
+                <!--
+                  Served from this repo on purpose. This slot previously hotlinked
+                  https://www.flexilytics.ai/assets/team/arjun.jpeg, which began
+                  returning HTTP 403 and rendered as stretched alt text. The site
+                  itself is fine (the link below still resolves), but the asset is
+                  not ours to depend on.
+                -->
                 <a href="https://www.flexilytics.ai/about" target="_blank">
-                    <img src="https://www.flexilytics.ai/assets/team/arjun.jpeg" alt="Arjun Ghosh Flexilytics" class="profile-img">
+                    <img src="assets/arjun-ghosh.jpg" alt="Arjun Ghosh, Chief AI Officer and CTO of Flexilytics" class="profile-img"
+                         width="100" height="100"
+                         onerror="this.onerror=null; this.src='https://github.com/arjunghosh.png';">
                 </a>
 
                 <div class="header-content">
@@ -106,13 +115,18 @@
         // The dark ramp is used rather than the light one because on this card's
         // purple background the light ramp inverts: its empty cells outshine its
         // busiest days. Re-verify against GitHub before editing these values.
+        // Empty days deviate from GitHub deliberately: a solid light L0 measures
+        // 7.50:1 against this card's purple while the brightest green measures
+        // 4.38:1, so empty days would outshine busy ones. A 12% white veil sits
+        // at 1.35:1 and recedes behind every green.
         var LEVEL_FILL = [
-            '#151b23', // 0 - no contributions
+            '#ffffff', // 0 - no contributions (translucent, see LEVEL_OPACITY)
             '#033a16', // 1
             '#196c2e', // 2
             '#2ea043', // 3
             '#56d364'  // 4 - neon green, brightest
         ];
+        var LEVEL_OPACITY = [0.12, 1, 1, 1, 1];
 
         var CELL = 11, GAP = 3, STEP = CELL + GAP;
         var PAD_LEFT = 28, PAD_TOP = 18, PAD_BOTTOM = 22;
@@ -196,7 +210,8 @@
                     height: CELL,
                     rx: 2,
                     ry: 2,
-                    fill: LEVEL_FILL[level]
+                    fill: LEVEL_FILL[level],
+                    'fill-opacity': LEVEL_OPACITY[level]
                 });
 
                 var title = svgEl('title');
@@ -234,7 +249,8 @@
                     height: LEGEND_CELL,
                     rx: 2,
                     ry: 2,
-                    fill: fill
+                    fill: fill,
+                    'fill-opacity': LEVEL_OPACITY[level]
                 });
                 group.appendChild(swatch);
             });
