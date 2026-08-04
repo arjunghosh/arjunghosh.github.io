@@ -1,5 +1,11 @@
 {
-  "dependencies": {
-    "github-calendar": "^2.3.4"
+  "name": "arjunghosh.github.io",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:live": "BASE_URL=https://arjunghosh.github.io playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1"
   }
 }

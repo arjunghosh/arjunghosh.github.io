@@ -264,14 +264,26 @@ h2 {
     font-family: 'Inter', sans-serif !important;
 }
 
-.calendar .width-full {
-    fill: transparent !important; /* Hide background rect */
+/* Headline above the grid, mirroring the GitHub profile page */
+.calendar .github-graph-total {
+    text-align: center;
+    color: #a0a0c0;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.calendar .github-graph-svg {
+    display: block;
+    overflow: visible; /* let the hover glow spill past the viewBox */
 }
 
 /* The magic glow for active cells */
 .calendar .ContributionCalendar-day[data-level]:not([data-level="0"]) {
     transition: all 0.3s ease;
     shape-rendering: geometricPrecision;
+    /* SVG needs an explicit box/origin for scale() to grow from the centre */
+    transform-box: fill-box;
+    transform-origin: center;
 }
 
 .calendar .ContributionCalendar-day[data-level]:not([data-level="0"]):hover {
@@ -292,6 +304,34 @@ h2 {
 .calendar text {
     fill: #a0a0c0 !important;
     font-size: 10px;
+}
+
+/* Degraded states: the graph must always resolve to something clickable */
+.calendar .github-graph-fallback {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
+.calendar .github-graph-link,
+.calendar .github-graph-degraded {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: var(--color-cyan);
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+.calendar .github-graph-link:hover,
+.calendar .github-graph-degraded:hover {
+    text-decoration: underline;
+}
+
+.calendar .github-graph-loading {
+    text-align: center;
+    color: #a0a0c0;
 }
 
 .social-links {
