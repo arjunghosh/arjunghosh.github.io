@@ -146,6 +146,15 @@ h2 {
     font-weight: 600;
 }
 
+a.highlight {
+    text-decoration: none;
+}
+
+a.highlight:hover,
+a.highlight:focus-visible {
+    text-decoration: underline;
+}
+
 /* Social Icons - Single Row */
 .social-icons-row {
   display: flex;
