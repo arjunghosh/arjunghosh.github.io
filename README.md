@@ -26,6 +26,7 @@ A premium, single-screen portfolio website designed for high-impact professional
 ## 🚀 Features
 *   **Interactive Contribution Graph**: Dynamic visualization of coding activity, rendered inline as SVG from a live contributions API. Hardened with a 6s request timeout and a three-tier fallback chain (live JSON → static chart image → GitHub profile link), so the section can never sit on "Loading..." if an upstream service goes down.
 *   **Dual Profile Header**: Showcasing both the Corporate (Flexilytics) and Developer (GitHub) personas.
+*   **Linked Entity Names**: The `Flexilytics.ai` and `Loyla.ai` mentions in the header subtitle are new-tab links to their respective sites, keeping the cyan highlight styling at rest and adding an underline only on hover/focus.
 *   **Responsive Layout**: Adapts gracefully from wide desktop screens to mobile devices.
 *   **Performance**: Zero external frameworks, ensuring instant load times (99+ Lighthouse score).
 
@@ -72,6 +73,23 @@ direct production dependency:
     something sensible instead of stretched alt text.
 
 ## 📝 Changelog
+### [v1.7.4] - 2026-09-01
+*   **Feature**: The `Flexilytics.ai` and `Loyla.ai` entity names in the header
+    subtitle are now new-tab links (`target="_blank" rel="noopener noreferrer"`)
+    to `https://www.flexilytics.ai/` and `https://www.loyla.ai/`, keeping the
+    existing cyan highlight color at rest and adding an underline only on
+    hover/focus — no default link-blue, no layout shift.
+*   **Fix**: `playwright.config.js` picked a random port per test run for
+    parallel-agent isolation, but each Playwright worker process re-requires
+    the config file independently, re-rolling `Math.random()` and landing on a
+    different `baseURL` than the one the `webServer` actually bound —
+    intermittent `ERR_CONNECTION_REFUSED` failures across the whole suite.
+    Fixed by memoizing the resolved port into `process.env.PORT` on first
+    read, so re-requires in worker processes converge on the same port.
+*   **Tests**: 34 passing (4 new specs for the header links). Full suite
+    verified green after the port-race fix, including previously-flaky
+    `github-activity.spec.js` and `header-highlight-links.spec.js`.
+
 ### [v1.7.3] - 2026-08-04
 *   **Design**: The lead portrait is now larger than the secondary avatar
     (140px vs 100px) via a `.profile-img--lead` modifier, and the crop was

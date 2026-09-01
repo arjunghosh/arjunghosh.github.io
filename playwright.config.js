@@ -3,7 +3,10 @@ const { defineConfig, devices } = require('@playwright/test');
 
 // Parallel-agent isolation: never bind a default/shared port.
 // Each run picks its own port unless one is pinned via env.
+// Memoize into process.env so worker processes that re-require this
+// config land on the same port the webServer actually bound.
 const PORT = Number(process.env.PORT) || 3001 + Math.floor(Math.random() * 1000);
+process.env.PORT = String(PORT);
 
 module.exports = defineConfig({
   testDir: './tests',
