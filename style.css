@@ -3,6 +3,7 @@
   --text-main: rgba(255, 255, 255, 0.87);
   --color-orange: #ff6b35;
   --color-gold: #ffd700;
+  --color-amber: #fd831b;
   --color-cyan: #56ccf2;
   --color-purple: #8b5cf6;
   --font-main: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -287,11 +288,11 @@ a.highlight:focus-visible {
     margin-bottom: 10px;
 }
 
-/* "N contributions" stands out: bold + italic + gold */
+/* "N contributions" stands out: bold + italic + amber */
 .calendar .github-graph-total .contrib-count {
     font-weight: 800;
     font-style: italic;
-    color: var(--color-gold);
+    color: var(--color-amber);
 }
 
 .calendar .github-graph-svg {

@@ -22,7 +22,7 @@ test.describe('AC-6 contribution count emphasis', () => {
     const style = await count.evaluate((el) => getComputedStyle(el).fontStyle);
     expect(style).toBe('italic');
     const color = await count.evaluate((el) => getComputedStyle(el).color);
-    expect(color).toBe('rgb(255, 215, 0)'); // var(--color-gold) #ffd700
+    expect(color).toBe('rgb(253, 131, 27)'); // var(--color-amber) #fd831b
   });
 
   test('the surrounding sentence stays muted (count colour differs)', async ({ page }) => {
