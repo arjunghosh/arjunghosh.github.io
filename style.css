@@ -167,7 +167,6 @@ a.highlight:focus-visible {
 }
 
 .icon-link {
-  color: #9ca3af; /* muted gray */
   font-size: 1.1rem; /* Slightly smaller to fit all */
   width: 36px;
   height: 36px;
@@ -181,44 +180,46 @@ a.highlight:focus-visible {
   text-decoration: none;
 }
 
-.icon-link:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-3px);
-  border-color: var(--color-cyan);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+/* Each tile carries its brand colour in --brand. Glyphs show it ALWAYS,
+   softened at rest (lower opacity) → full strength on hover. */
+.icon-link i {
+  color: var(--brand, #9ca3af);
+  opacity: 0.65;
+  transition: opacity 0.3s ease, color 0.3s ease;
 }
-
-/* Self-hosted circular brand logos (Flexilytics, Loyla, Scrum Alliance):
-   muted greyscale at rest, full colour on hover — matches the reveal theme. */
 .icon-link .icon-logo {
   width: 22px;
   height: 22px;
   border-radius: 50%;
   object-fit: cover;
-  filter: grayscale(1) opacity(0.6);
-  transition: filter 0.3s ease;
+  opacity: 0.65; /* full colour, just softened at rest */
+  transition: opacity 0.3s ease;
 }
+
+/* Hover: full-strength icon + the WHOLE tile brightens in the brand colour
+   (brand-tinted background, brand border, brand glow, bigger lift). */
+.icon-link:hover {
+  transform: translateY(-4px);
+  background: color-mix(in srgb, var(--brand, #ffffff) 22%, rgba(255, 255, 255, 0.10));
+  border-color: var(--brand, var(--color-cyan));
+  box-shadow: 0 6px 20px -2px color-mix(in srgb, var(--brand, #000000) 60%, transparent);
+}
+.icon-link:hover i,
 .icon-link:hover .icon-logo {
-  filter: grayscale(0) opacity(1);
+  opacity: 1;
 }
 
-/* Per-brand glyph hover colours (grey at rest → official brand colour). */
-.icon-link--linkedin:hover i { color: #0A66C2; }
-.icon-link--github:hover i   { color: #F0F6FC; } /* light substitute; black invisible on purple */
-.icon-link--x:hover i        { color: #FFFFFF; } /* light substitute */
-.icon-link--facebook:hover i { color: #1877F2; }
-.icon-link--aboutme:hover i  { color: #0872B4; } /* about.me profile blue */
-.icon-link--ani:hover i      { color: #F5422E; } /* Agile Network India red */
-
-/* Instagram: real multicolour brand gradient on hover. */
-.icon-link--instagram:hover i {
-  background: radial-gradient(circle at 30% 107%, #FDF497 0%, #FDF497 5%, #FD5949 45%, #D6249F 60%, #285AEB 90%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
+/* Per-tile brand colours (brightened for contrast on the purple background). */
+.icon-link--linkedin      { --brand: #2E8FE0; }
+.icon-link--github        { --brand: #F0F6FC; } /* light; black invisible on purple */
+.icon-link--flexilytics   { --brand: #3B8EF0; }
+.icon-link--loyla         { --brand: #22D3EE; }
+.icon-link--x             { --brand: #FFFFFF; } /* light; black invisible on purple */
+.icon-link--instagram     { --brand: #E4405F; } /* flat Instagram magenta */
+.icon-link--facebook      { --brand: #4293FB; }
+.icon-link--aboutme       { --brand: #2AA3DD; }
+.icon-link--scrumalliance { --brand: #F58220; } /* Scrum Alliance orange */
+.icon-link--ani           { --brand: #F5422E; } /* Agile Network India red */
 
 /* Signature Punchline - Impactful & Elegant */
 .signature-punchline {
