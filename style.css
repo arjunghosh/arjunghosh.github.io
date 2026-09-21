@@ -189,6 +189,37 @@ a.highlight:focus-visible {
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
+/* Self-hosted circular brand logos (Flexilytics, Loyla, Scrum Alliance):
+   muted greyscale at rest, full colour on hover — matches the reveal theme. */
+.icon-link .icon-logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  filter: grayscale(1) opacity(0.6);
+  transition: filter 0.3s ease;
+}
+.icon-link:hover .icon-logo {
+  filter: grayscale(0) opacity(1);
+}
+
+/* Per-brand glyph hover colours (grey at rest → official brand colour). */
+.icon-link--linkedin:hover i { color: #0A66C2; }
+.icon-link--github:hover i   { color: #F0F6FC; } /* light substitute; black invisible on purple */
+.icon-link--x:hover i        { color: #FFFFFF; } /* light substitute */
+.icon-link--facebook:hover i { color: #1877F2; }
+.icon-link--aboutme:hover i  { color: #0872B4; } /* about.me profile blue */
+.icon-link--ani:hover i      { color: #F5422E; } /* Agile Network India red */
+
+/* Instagram: real multicolour brand gradient on hover. */
+.icon-link--instagram:hover i {
+  background: radial-gradient(circle at 30% 107%, #FDF497 0%, #FDF497 5%, #FD5949 45%, #D6249F 60%, #285AEB 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
 /* Signature Punchline - Impactful & Elegant */
 .signature-punchline {
   margin-top: 0.5rem;
