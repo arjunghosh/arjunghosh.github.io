@@ -287,6 +287,12 @@ a.highlight:focus-visible {
     margin-bottom: 10px;
 }
 
+/* Contribution count stands out: bold + neon green (matches the graph cells) */
+.calendar .github-graph-total .contrib-count {
+    font-weight: 800;
+    color: #56d364;
+}
+
 .calendar .github-graph-svg {
     display: block;
     overflow: visible; /* let the hover glow spill past the viewBox */

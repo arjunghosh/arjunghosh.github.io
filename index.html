@@ -274,8 +274,10 @@
             var total = payload.total && payload.total.lastYear;
             var heading = document.createElement('p');
             heading.className = 'github-graph-total';
-            heading.textContent = Number(total || 0).toLocaleString('en-US') +
-                ' contributions in the last year';
+            var count = document.createElement('strong');
+            count.className = 'contrib-count';
+            count.textContent = Number(total || 0).toLocaleString('en-US');
+            heading.append(count, document.createTextNode(' contributions in the last year'));
 
             var link = document.createElement('a');
             link.className = 'github-graph-link';
