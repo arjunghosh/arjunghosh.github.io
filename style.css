@@ -287,10 +287,11 @@ a.highlight:focus-visible {
     margin-bottom: 10px;
 }
 
-/* Contribution count stands out: bold + neon green (matches the graph cells) */
+/* "N contributions" stands out: bold + italic + gold */
 .calendar .github-graph-total .contrib-count {
     font-weight: 800;
-    color: #56d364;
+    font-style: italic;
+    color: var(--color-gold);
 }
 
 .calendar .github-graph-svg {

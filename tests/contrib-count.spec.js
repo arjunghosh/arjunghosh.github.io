@@ -4,23 +4,25 @@ const { mockPrimary } = require('./fixtures');
 
 /**
  * Acceptance criteria: in the "N contributions in the last year" heading, the
- * contribution COUNT must stand out — bold and a bright distinctive colour
- * (neon green #56d364, matching the graph), not the muted grey of the
- * surrounding sentence. The rest of the sentence stays muted.
+ * "<count> contributions" part must stand out — bold + italic and gold
+ * (var(--color-gold) #ffd700), not the muted grey of the surrounding
+ * sentence. " in the last year" stays muted.
  */
 
 test.describe('AC-6 contribution count emphasis', () => {
-  test('the count is wrapped in a bold, neon-green element', async ({ page }) => {
+  test('the "N contributions" is wrapped in a bold+italic gold element', async ({ page }) => {
     await mockPrimary(page);
     await page.goto('/index.html');
     const count = page.locator('.github-graph-total .contrib-count');
     await expect(count).toHaveCount(1);
-    // Non-empty numeric text (e.g. "1,668").
-    await expect(count).toHaveText(/[0-9]/);
+    // Includes the number AND the word "contributions".
+    await expect(count).toHaveText(/[0-9].*contributions/);
     const weight = await count.evaluate((el) => getComputedStyle(el).fontWeight);
     expect(Number(weight)).toBeGreaterThanOrEqual(700);
+    const style = await count.evaluate((el) => getComputedStyle(el).fontStyle);
+    expect(style).toBe('italic');
     const color = await count.evaluate((el) => getComputedStyle(el).color);
-    expect(color).toBe('rgb(86, 211, 100)'); // #56d364
+    expect(color).toBe('rgb(255, 215, 0)'); // var(--color-gold) #ffd700
   });
 
   test('the surrounding sentence stays muted (count colour differs)', async ({ page }) => {
