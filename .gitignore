@@ -14,3 +14,4 @@ playwright/.cache/
 # Local-only governance / internal notes (never pushed to this public repo)
 MEMORY.md
 docs/reports/
+MEMORY.md.bak.*
